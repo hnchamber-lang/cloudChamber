@@ -1,0 +1,79 @@
+2026-04-25 09:31:13  INFO     Chamber root     : D:\Chamber
+2026-04-25 09:31:13  INFO     Catalog          : D:\Chamber\_reorg\instruments.yaml
+2026-04-25 09:31:13  INFO     Loaded 22 instruments, 10 non-instrument rules
+2026-04-25 09:31:13  INFO     Wrote plan -> D:\Chamber\_reorg\rename_plan.csv  (36 steps)
+2026-04-25 09:31:13  WARNING  EXECUTE mode - 36 steps. Archive-first=True
+Proceed?  Type 'yes' to continue: 2026-04-25 09:31:13  INFO     [1/36] rename  CCN_200 (NEW)
+2026-04-25 09:31:37  INFO       rename  CCN_200 (NEW)  ->  01_instruments\CCN200_SN2310-057
+2026-04-25 09:31:37  INFO     [2/36] rename  CCN_200 (OLD)
+2026-04-25 09:32:44  INFO       rename  CCN_200 (OLD)  ->  01_instruments\CCN200_SN
+2026-04-25 09:32:44  INFO     [3/36] merge  CPC0103 (AC)
+2026-04-25 09:32:56  INFO       merge   CPC0103 (AC) -> 01_instruments\CPC3750_SN3750230103  (moved=66, dup_removed=0, conflicts=0)
+2026-04-25 09:32:56  INFO     [4/36] merge  CPC 0103
+2026-04-25 09:32:58  INFO       merge   CPC 0103 -> 01_instruments\CPC3750_SN3750230103  (moved=7, dup_removed=0, conflicts=0)
+2026-04-25 09:32:58  INFO     [5/36] rename  CPC1103 (CC)
+2026-04-25 09:33:10  INFO       rename  CPC1103 (CC)  ->  01_instruments\CPC3750_SN3750221103
+2026-04-25 09:33:10  INFO     [6/36] merge  CPC1105 (AC)
+2026-04-25 09:33:12  INFO       merge   CPC1105 (AC) -> 01_instruments\CPC3750_SN3750221105  (moved=110, dup_removed=0, conflicts=0)
+2026-04-25 09:33:12  INFO     [7/36] merge  CPC_1105
+2026-04-25 09:33:12  INFO       merge   CPC_1105 -> 01_instruments\CPC3750_SN3750221105  (moved=0, dup_removed=2, conflicts=0)
+2026-04-25 09:33:12  INFO     [8/36] merge  SMPS7002
+2026-04-25 09:33:16  INFO       merge   SMPS7002 -> 01_instruments\SMPS_SN7002_CPC3750221105  (moved=664, dup_removed=0, conflicts=0)
+2026-04-25 09:33:16  INFO     [9/36] merge  SMPS
+2026-04-25 09:33:16  INFO       merge   SMPS -> 01_instruments\SMPS_SN7002_CPC3750221105  (moved=6, dup_removed=0, conflicts=0)
+2026-04-25 09:33:16  INFO     [10/36] merge  SMPS_KCI
+2026-04-25 09:33:16  INFO       merge   SMPS_KCI -> 01_instruments\SMPS_SN7002_CPC3750221105  (moved=14, dup_removed=0, conflicts=0)
+2026-04-25 09:33:16  INFO     [11/36] rename  SMPS7003
+2026-04-25 09:33:24  INFO       rename  SMPS7003  ->  01_instruments\SMPS_SN7003_CPC3750221103
+2026-04-25 09:33:24  INFO     [12/36] rename  PROMO 2000 (AC)
+2026-04-25 09:34:12  INFO       rename  PROMO 2000 (AC)  ->  01_instruments\PROMO2000_SN15639
+2026-04-25 09:34:12  INFO     [13/36] rename  PROMO 2000 (NEW)
+2026-04-25 09:34:39  INFO       rename  PROMO 2000 (NEW)  ->  01_instruments\PROMO2000_SN22659
+2026-04-25 09:34:39  INFO     [14/36] rename  PROMO 3000
+2026-04-25 09:35:09  INFO       rename  PROMO 3000  ->  01_instruments\PROMO3000_SN18803
+2026-04-25 09:35:09  INFO     [15/36] rename  LICOR0807
+2026-04-25 09:35:15  INFO       rename  LICOR0807  ->  01_instruments\LI7500_SN75D-4824
+2026-04-25 09:35:15  INFO     [16/36] rename  LICOR0808
+2026-04-25 09:35:25  INFO       rename  LICOR0808  ->  01_instruments\LI7500_SN75D-4831
+2026-04-25 09:35:25  INFO     [17/36] rename  GRAPHTEC
+2026-04-25 09:35:49  INFO       rename  GRAPHTEC  ->  01_instruments\GL840_SN0505170C
+2026-04-25 09:35:49  INFO     [18/36] rename  PINE07 (AC)
+2026-04-25 09:36:10  INFO       rename  PINE07 (AC)  ->  01_instruments\PINE_SN06-03
+2026-04-25 09:36:10  INFO     [19/36] rename  MARGA
+2026-04-25 09:36:10  INFO       rename  MARGA  ->  01_instruments\MARGA2060_SN
+2026-04-25 09:36:10  INFO     [20/36] rename  CASDPOL
+2026-04-25 09:38:59  INFO       rename  CASDPOL  ->  01_instruments\CASDPOL_SN
+2026-04-25 09:38:59  INFO     [21/36] rename  CDSN
+2026-04-25 09:38:59  INFO       rename  CDSN  ->  01_instruments\CD5N_SN
+2026-04-25 09:38:59  INFO     [22/36] rename  CIMON
+2026-04-25 09:39:09  INFO       rename  CIMON  ->  01_instruments\CIMON_SN
+2026-04-25 09:39:09  INFO     [23/36] rename  CPI
+2026-04-25 09:44:57  INFO       rename  CPI  ->  01_instruments\CPI_SN
+2026-04-25 09:44:57  INFO     [24/36] rename  FTM06D
+2026-04-25 09:44:58  INFO       rename  FTM06D  ->  01_instruments\FTM06D_SN
+2026-04-25 09:44:58  INFO     [25/36] rename  HYGRO1011
+2026-04-25 09:45:02  INFO       rename  HYGRO1011  ->  01_instruments\HYGRO1011_SN
+2026-04-25 09:45:02  INFO     [26/36] rename  Sky-OPC
+2026-04-25 09:45:02  INFO       rename  Sky-OPC  ->  01_instruments\SkyOPC_SN
+2026-04-25 09:45:02  INFO     [27/36] move  etc
+2026-04-25 09:45:03  INFO       rename  etc  ->  00_tools
+2026-04-25 09:45:03  INFO     [28/36] move  files
+2026-04-25 09:45:03  INFO       rename  files  ->  00_resources
+2026-04-25 09:45:03  INFO     [29/36] move  POST
+2026-04-25 09:45:16  INFO       rename  POST  ->  02_archives\POST_zips
+2026-04-25 09:45:16  INFO     [30/36] move  thai_old_opc_calibrated_20250711
+2026-04-25 09:45:16  INFO       rename  thai_old_opc_calibrated_20250711  ->  02_archives\thai_old_opc_calibrated_20250711
+2026-04-25 09:45:16  INFO     [31/36] move  YSU
+2026-04-25 09:45:34  INFO       rename  YSU  ->  02_campaigns_legacy\YSU_20250808
+2026-04-25 09:45:34  INFO     [32/36] move  PNU
+2026-04-25 09:45:52  INFO       rename  PNU  ->  02_campaigns_legacy\PNU_20250826
+2026-04-25 09:45:52  INFO     [33/36] move  unist
+2026-04-25 09:45:59  INFO       rename  unist  ->  02_campaigns_legacy\UNIST_20250826
+2026-04-25 09:45:59  INFO     [34/36] delete_empty_parent  NIMS_AC
+2026-04-25 09:45:59  INFO       deleted empty parent: NIMS_AC
+2026-04-25 09:45:59  INFO     [35/36] delete_empty_parent  NIMS_Milo
+2026-04-25 09:45:59  INFO       deleted empty parent: NIMS_Milo
+2026-04-25 09:45:59  INFO     [36/36] move  관측자료(2026.04.20.~)
+2026-04-25 09:46:06  INFO       rename  관측자료(2026.04.20.~)  ->  03_projects\ASIA_AQ_2026_JWCHA_rawmirror
+2026-04-25 09:46:06  INFO     Reorganization complete. Archive kept at: D:\Chamber\_archive_pre_reorg
+EXIT_CODE=0

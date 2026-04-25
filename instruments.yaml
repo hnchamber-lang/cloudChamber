@@ -1,0 +1,314 @@
+# =============================================================================
+#  Chamber Instruments Catalog
+#  -----------------------------------------------------------------------------
+#  Single source of truth for all observation instruments in D:\Chamber.
+#  Used by:
+#    - reorganize.py       : folder renames / merges
+#    - build_project.py    : namelist -> project folder builder
+#    - chamber_gui.py      : dropdown population
+#
+#  Field reference
+#  ---------------
+#  code           : Unique key == final folder name under 01_instruments/
+#  model          : Human-readable model (for GUI display)
+#  serial         : Serial number (empty string "" if not yet identified)
+#  category       : Instrument type (CCN, CPC, SMPS, OPC, etc.)
+#  legacy_paths   : Old relative paths under D:\Chamber to be migrated here
+#  file_patterns  : Glob patterns for data files (for date filtering)
+#  date_source    : filename | folder | file_mtime | header
+#  date_regex     : Regex capturing the date from filename/folder (optional)
+#  date_format    : strftime format for parsing the captured date
+#  note           : Free-text remarks
+# =============================================================================
+
+version: 1
+generated: "2026-04-24"
+root: "D:/Chamber"
+instruments_root: "01_instruments"
+
+instruments:
+
+  # ---------- CCN (Cloud Condensation Nuclei counter) ----------
+  - code: CCN200_SN2310-057
+    model: "DMT CCN-200"
+    serial: "2310-057"
+    category: "CCN counter"
+    legacy_paths: ["CCN_200 (NEW)"]
+    file_patterns: ["CCN_200_Data_*.csv", "CCN-200 data *.csv"]
+    date_source: "filename"
+    date_regex: "CCN_200_Data_(\\d{8}_\\d{6})"
+    date_format: "%Y%m%d_%H%M%S"
+    note: "Corresponds to 'CCN_057' in project folders. Filenames look like CCN_200_Data_20240926_152030.csv"
+
+  - code: CCN200_SN
+    model: "DMT CCN-200"
+    serial: ""
+    category: "CCN counter"
+    legacy_paths: ["CCN_200 (OLD)"]
+    file_patterns: ["CCN-200 data *.csv", "CCN-200 data *.CSV"]
+    date_source: "filename"
+    date_regex: "CCN-200 data (\\d{12})\\.[cC][sS][vV]"
+    date_format: "%y%m%d%H%M%S"
+    note: "2022 archive. Older firmware - no SN in header. Fill serial after hardware-label check."
+
+  # ---------- CPC (Condensation Particle Counter) — 3 units ----------
+  - code: CPC3750_SN3750230103
+    model: "TSI CPC 3750"
+    serial: "3750230103"
+    category: "CPC"
+    legacy_paths:
+      - "CPC/CPC0103 (AC)"
+      - "NIMS_Milo/CPC 0103"
+    file_patterns: ["*.csv"]
+    date_source: "folder"
+    date_regex: "(\\d{4}-\\d{2}-\\d{2})"
+    date_format: "%Y-%m-%d"
+    note: "CPC '0103' unit. Used in AC. Filenames may be '2026-01-22 120009_1 Hz.csv'."
+
+  - code: CPC3750_SN3750221103
+    model: "TSI CPC 3750"
+    serial: "3750221103"
+    category: "CPC"
+    legacy_paths: ["CPC/CPC1103 (CC)"]
+    file_patterns: ["*.csv"]
+    date_source: "folder"
+    date_format: "%Y%m%d"
+    note: "CPC '1103' unit. Used in CC (Cloud Chamber). Also serves as detector for SMPS 7003."
+
+  - code: CPC3750_SN3750221105
+    model: "TSI CPC 3750"
+    serial: "3750221105"
+    category: "CPC"
+    legacy_paths:
+      - "CPC/CPC1105 (AC)"
+      - "NIMS_AC/CPC_1105"
+    file_patterns: ["*.csv"]
+    date_source: "folder"
+    date_regex: "(\\d{4}-\\d{2}-\\d{2})"
+    date_format: "%Y-%m-%d"
+    note: "CPC '1105' unit. Also serves as detector for SMPS 7002. Mixed flat/dated layouts."
+
+  # ---------- SMPS (Scanning Mobility Particle Sizer) — 2 systems ----------
+  - code: SMPS_SN7002_CPC3750221105
+    model: "TSI SMPS (3082 DMA + 3750 CPC)"
+    serial: "7002"
+    detector_serial: "3750221105"
+    category: "SMPS"
+    legacy_paths:
+      - "SMPS7002"
+      - "NIMS_AC/SMPS"
+      - "NIMS_Milo/SMPS_KCI"
+    file_patterns: ["*.p82", "*.csv", "*.txt", "*.TXT"]
+    date_source: "folder"
+    date_regex: "(\\d{8})"
+    date_format: "%Y%m%d"
+    note: "DMA SN 7002 paired with CPC 1105. Some NIMS_Milo files embed YYYYMMDD in filename (kcl_validB_20260122.p82)."
+
+  - code: SMPS_SN7003_CPC3750221103
+    model: "TSI SMPS (3082 DMA + 3750 CPC)"
+    serial: "7003"
+    detector_serial: "3750221103"
+    category: "SMPS"
+    legacy_paths: ["SMPS7003"]
+    file_patterns: ["*.p82", "*.csv", "*.txt", "*.TXT"]
+    date_source: "folder"
+    date_format: "%Y%m%d"
+    note: "DMA SN 7003 paired with CPC 1103."
+
+  # ---------- PROMO (Palas optical particle counters) ----------
+  - code: PROMO2000_SN15639
+    model: "Palas Promo 2000"
+    serial: "15639"
+    category: "Optical particle counter"
+    legacy_paths: ["PROMO 2000 (AC)"]
+    file_patterns: ["DATA_auto_15639_*.promo", "DATA_auto_15639_*.csv"]
+    date_source: "filename"
+    date_regex: "DATA_auto_15639_(\\d{4})_(\\d{2})_(\\d{2})"
+    date_format: "%Y-%m-%d"
+
+  - code: PROMO2000_SN22659
+    model: "Palas Promo 2000"
+    serial: "22659"
+    category: "Optical particle counter"
+    legacy_paths: ["PROMO 2000 (NEW)"]
+    file_patterns: ["DATA_auto_22659_*.promo", "DATA_auto_22659_*.csv", "*.promo", "*.csv"]
+    date_source: "folder"
+    date_format: "%Y%m"
+
+  - code: PROMO3000_SN18803
+    model: "Palas Promo 3000"
+    serial: "18803"
+    category: "Optical particle counter"
+    legacy_paths: ["PROMO 3000"]
+    file_patterns: ["DATA_auto_18803_*.promo", "*.promo", "*.csv"]
+    date_source: "folder"
+    date_format: "%Y%m"
+
+  # ---------- LI-COR (CO2/H2O gas analyzer) ----------
+  - code: LI7500_SN75D-4824
+    model: "LI-COR LI-7500"
+    serial: "75D-4824"
+    category: "Gas analyzer (CO2/H2O)"
+    legacy_paths: ["LICOR0807"]
+    file_patterns: ["*.csv", "*.dat", "*.txt"]
+    date_source: "filename"
+    date_regex: "LogFile-(\\d{4}-\\d{2}-\\d{2}T\\d{6})"
+    date_format: "%Y-%m-%dT%H%M%S"
+    note: "Filenames: LogFile-YYYY-MM-DDTHHMMSS[-...].txt|.csv"
+
+  - code: LI7500_SN75D-4831
+    model: "LI-COR LI-7500"
+    serial: "75D-4831"
+    category: "Gas analyzer (CO2/H2O)"
+    legacy_paths: ["LICOR0808"]
+    file_patterns: ["*.csv", "*.dat", "*.txt"]
+    date_source: "filename"
+    date_regex: "LogFile-(\\d{4}-\\d{2}-\\d{2}T\\d{6})"
+    date_format: "%Y-%m-%dT%H%M%S"
+
+  # ---------- Graphtec data logger ----------
+  - code: GL840_SN0505170C
+    model: "GRAPHTEC GL840"
+    serial: "0505170C"
+    category: "Data logger"
+    legacy_paths: ["GRAPHTEC"]
+    file_patterns: ["*.csv", "*.gbd"]
+    date_source: "folder"
+    date_format: "%Y-%m-%d"
+
+  # ---------- PINE (ice nucleation chamber) ----------
+  - code: PINE_SN06-03
+    model: "Bilfinger PINE 06-03"
+    serial: "06-03"
+    category: "Ice nucleation chamber"
+    legacy_paths: ["PINE07 (AC)"]
+    file_patterns: ["*.csv", "*.dat", "pfo_PINE-*.txt"]
+    date_source: "folder"
+    date_regex: "(\\d{8})"
+    date_format: "%Y%m%d"
+    note: "Some files like 'pfo_PINE-06-03_iceeb-20ms-20251226.txt' encode date at end."
+
+  # ---------- MARGA (wet-chemistry aerosol analyzer) ----------
+  - code: MARGA2060_SN
+    model: "Metrohm MARGA 2060"
+    serial: ""
+    category: "Wet-chem aerosol analyzer"
+    legacy_paths: ["MARGA"]
+    file_patterns: ["*.idet", "*.csv"]
+    date_source: "filename"
+    date_regex: "(\\d{8})-(\\d{6})\\.idet"
+    date_format: "%Y%m%d-%H%M%S"
+    note: "Unit SN not found in data files. Check device label."
+
+  # ---------- Unknown-serial instruments (placeholder; SN to be filled) ----------
+  - code: CASDPOL_SN
+    model: "DMT CAS-DPOL"
+    serial: ""
+    category: "Cloud aerosol spectrometer"
+    legacy_paths: ["CASDPOL"]
+    file_patterns: ["*.csv", "*.dat"]
+    date_source: "folder"
+    date_format: "%Y%m%d"
+    note: "SN unknown. No metadata in PADS files."
+
+  - code: CD5N_SN
+    model: "CD5N"
+    serial: ""
+    category: "CD5N detector"
+    legacy_paths: ["CDSN"]
+    file_patterns: ["sth_cd5n_*.csv"]
+    date_source: "filename"
+    date_regex: "sth_cd5n_(\\d{8})_(\\d{6})\\.csv"
+    date_format: "%Y%m%d-%H%M%S"
+    note: "SN unknown. Data-only CSV."
+
+  - code: CIMON_SN
+    model: "CIMON solar radiation sensor"
+    serial: ""
+    category: "Radiometer"
+    legacy_paths: ["CIMON"]
+    file_patterns: ["*.csv"]
+    date_source: "folder"
+    date_format: "%Y%m"
+    note: "SN unknown."
+
+  - code: CPI_SN
+    model: "SPEC CPI (Cloud Particle Imager)"
+    serial: ""
+    category: "Imaging probe"
+    legacy_paths: ["CPI"]
+    file_patterns: ["*.cpi", "*.roi", "*.csv"]
+    date_source: "folder"
+    date_regex: "(\\d{14})"
+    date_format: "%Y%m%d%H%M%S"
+    note: "SN unknown. 'Build data' subfolder has 14-digit-named .roi files; date-named subfolders elsewhere."
+
+  - code: FTM06D_SN
+    model: "FTM06D"
+    serial: ""
+    category: "Flow / temperature monitor"
+    legacy_paths: ["FTM06D"]
+    file_patterns: ["*.csv"]
+    date_source: "folder"
+    date_format: "%Y%m%d"
+    note: "SN unknown."
+
+  - code: HYGRO1011_SN
+    model: "Hygrometer 1011"
+    serial: ""
+    category: "Hygrometer"
+    legacy_paths: ["HYGRO1011"]
+    file_patterns: ["*.csv"]
+    date_source: "folder"
+    date_format: "%Y%m"
+    note: "SN unknown."
+
+  - code: SkyOPC_SN
+    model: "GRIMM Sky-OPC"
+    serial: ""
+    category: "Optical particle counter"
+    legacy_paths: ["Sky-OPC"]
+    file_patterns: ["*.dat"]
+    date_source: "filename"
+    date_regex: "(\\d{4}-\\d{2}-\\d{2})-[CLMd]"
+    date_format: "%Y-%m-%d"
+    note: "SN unknown. Filenames like 'kaolin_2026415_2026-04-15-C.dat'; the trailing date is authoritative."
+
+# =============================================================================
+# Legacy / mixed folders to be handled by reorganize.py (non-instrument)
+# =============================================================================
+non_instrument_folders:
+  - path: "etc"
+    action: "move"
+    to: "00_tools"
+    note: "Post-processing Python scripts."
+  - path: "files"
+    action: "move"
+    to: "00_resources"
+    note: "Animation GIFs and resources."
+  - path: "POST"
+    action: "move"
+    to: "02_archives/POST_zips"
+    note: "Packaged ZIP distributions - archive as-is."
+  - path: "thai_old_opc_calibrated_20250711"
+    action: "move"
+    to: "02_archives/thai_old_opc_calibrated_20250711"
+  - path: "YSU"
+    action: "move"
+    to: "02_campaigns_legacy/YSU_20250808"
+  - path: "PNU"
+    action: "move"
+    to: "02_campaigns_legacy/PNU_20250826"
+  - path: "unist"
+    action: "move"
+    to: "02_campaigns_legacy/UNIST_20250826"
+  - path: "NIMS_AC"
+    action: "split_merge"
+    note: "Split: CPC_1105 -> CPC3750_SN3750221105, SMPS -> SMPS_SN7002_CPC3750221105. Then delete empty parent."
+  - path: "NIMS_Milo"
+    action: "split_merge"
+    note: "Split: CPC 0103 -> CPC3750_SN3750230103, SMPS_KCI -> SMPS_SN7002_CPC3750221105. Then delete empty parent."
+  - path: "관측자료(2026.04.20.~)"
+    action: "move"
+    to: "03_projects/ASIA_AQ_2026_JWCHA_rawmirror"
+    note: "Active campaign. Keep a raw mirror under projects/ until rebuilt via namelist."

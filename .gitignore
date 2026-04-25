@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+run.log
+rename_plan.csv
+preflight_report.csv
+_archive_pre_reorg/
+_gui_tmp_namelist.yaml
+namelist.*.yaml
