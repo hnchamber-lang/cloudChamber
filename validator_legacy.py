@@ -1,23 +1,28 @@
 """
-validator.py — Verify that instruments.yaml date-parsing rules actually work
-on the real files in D:\\Chamber.
+validator_legacy.py — PRE-REORG / archive-mirror validator.
 
-For each instrument, walks its legacy_paths and attempts to parse a date from
-every file using the catalog rules (`date_source` + `date_regex` + `date_format`).
-Reports:
+Points at the original folder layout. Uses each instrument's
+`legacy_paths` from `instruments.yaml` and walks
+`D:\\Chamber\\_archive_pre_reorg\\<legacy_path>\\`.
 
-    * files matched (and the dates extracted)
-    * files NOT matched (first 5 examples per instrument for inspection)
-    * min / max date actually found (so you can sanity-check against reality)
+For the POST-reorg `01_instruments/<code>/` layout, use the canonical
+`validator.py` instead.
 
-This is a read-only test.  Use it BEFORE reorganization to ensure the
-build_project.py date filter will work correctly.
+When to use this:
+  * To diff archived originals against the reorganized tree (sanity
+    check that nothing was lost in the merge).
+  * As a historical reference for how the catalog mapped to the
+    legacy folder names.
+
+For each instrument, walks legacy_paths and parses dates using the
+catalog rules (`date_source` + `date_regex` + `date_format`). Reports
+matched / unmatched / non-pattern counts plus min/max observed date.
 
 Usage
 -----
-    python validator.py                # summary table
-    python validator.py --verbose      # show un-parsed filename samples
-    python validator.py --code CCN200_SN2310-057   # just one instrument
+    python validator_legacy.py
+    python validator_legacy.py --verbose
+    python validator_legacy.py --code CCN200_SN2310-057
 """
 
 from __future__ import annotations
@@ -43,7 +48,7 @@ for _stream in (sys.stdout, sys.stderr):
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-CHAMBER_ROOT = SCRIPT_DIR.parent
+CHAMBER_ROOT = SCRIPT_DIR.parent / "_archive_pre_reorg"
 CATALOG_PATH = SCRIPT_DIR / "instruments.yaml"
 
 
@@ -118,8 +123,10 @@ def check_instrument(ins: dict, *, verbose: bool) -> dict:
     unmatched_files = 0
     other_skipped = 0
 
-    root = CHAMBER_ROOT / "01_instruments" / ins["code"]
-    if root.exists():
+    for lp in ins.get("legacy_paths", []):
+        root = CHAMBER_ROOT / lp
+        if not root.exists():
+            continue
         for p in root.rglob("*"):
             if not p.is_file():
                 continue

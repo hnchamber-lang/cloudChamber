@@ -151,8 +151,8 @@ See `TROUBLESHOOTING.md` — a cookbook of every parsing edge case encountered d
 | `run_gui.bat` | ⑥ Launch GUI |
 | `run_rollback.bat` | Emergency restore |
 | `run_verify.bat` | SHA256 integrity check (post-reorg) |
-| `validator.py` | Date-parse validator (legacy structure) |
-| `validator_new.py` | Date-parse validator (current `01_instruments/` structure) |
+| `validator.py` | Date-parse validator — **canonical**, walks `01_instruments/<code>/` (post-reorg) |
+| `validator_legacy.py` | Date-parse validator — pre-reorg / `_archive_pre_reorg` mirror |
 | `verify_integrity.py` | Compares `_archive_pre_reorg` ↔ `01_instruments` hashes |
 | `test_e2e.py` | End-to-end synthetic-data regression test |
 | `tests/` | Unit tests (parse_date, namelist) |

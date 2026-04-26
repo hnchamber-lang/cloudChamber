@@ -1,17 +1,23 @@
 """
 validator.py — Verify that instruments.yaml date-parsing rules actually work
-on the real files in D:\\Chamber.
+on the real files in D:\\Chamber\\01_instruments\\<code>\\ (POST-REORG layout).
 
-For each instrument, walks its legacy_paths and attempts to parse a date from
-every file using the catalog rules (`date_source` + `date_regex` + `date_format`).
-Reports:
+This is the *canonical* validator. It points at the standardized
+`01_instruments/<code>/` tree that `reorganize.py --execute` produces.
+For PRE-reorg layouts (raw legacy folders mirrored in
+`_archive_pre_reorg/`), use `validator_legacy.py` instead.
+
+For each instrument, walks `01_instruments/<code>/` and attempts to parse
+a date from every file using the catalog rules (`date_source` +
+`date_regex` + `date_format`). Reports:
 
     * files matched (and the dates extracted)
     * files NOT matched (first 5 examples per instrument for inspection)
     * min / max date actually found (so you can sanity-check against reality)
 
-This is a read-only test.  Use it BEFORE reorganization to ensure the
-build_project.py date filter will work correctly.
+This is a read-only test. Run it AFTER reorganization, and again any time
+you edit `instruments.yaml` (e.g. fill an unknown SN, add a file_pattern,
+change date_source) to confirm the catalog still matches reality.
 
 Usage
 -----
@@ -43,7 +49,7 @@ for _stream in (sys.stdout, sys.stderr):
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-CHAMBER_ROOT = SCRIPT_DIR.parent / "_archive_pre_reorg"
+CHAMBER_ROOT = SCRIPT_DIR.parent
 CATALOG_PATH = SCRIPT_DIR / "instruments.yaml"
 
 
@@ -118,10 +124,8 @@ def check_instrument(ins: dict, *, verbose: bool) -> dict:
     unmatched_files = 0
     other_skipped = 0
 
-    for lp in ins.get("legacy_paths", []):
-        root = CHAMBER_ROOT / lp
-        if not root.exists():
-            continue
+    root = CHAMBER_ROOT / "01_instruments" / ins["code"]
+    if root.exists():
         for p in root.rglob("*"):
             if not p.is_file():
                 continue
