@@ -69,11 +69,13 @@ instruments:
     model: "TSI CPC 3750"
     serial: "3750221103"
     category: "CPC"
-    legacy_paths: ["CPC/CPC1103 (CC)"]
+    legacy_paths:
+      - "CPC/CPC1103 (CC)"
+      - "CPC/CPC1105_CC"
     file_patterns: ["*.csv"]
     date_source: "folder"
     date_format: "%Y%m%d"
-    note: "CPC '1103' unit. Used in CC (Cloud Chamber). Also serves as detector for SMPS 7003."
+    note: "CPC '1103' unit. Used in CC (Cloud Chamber). Also serves as detector for SMPS 7003. 27 misplaced files were also found inside CPC/CPC1105_CC."
 
   - code: CPC3750_SN3750221105
     model: "TSI CPC 3750"
@@ -82,11 +84,25 @@ instruments:
     legacy_paths:
       - "CPC/CPC1105 (AC)"
       - "NIMS_AC/CPC_1105"
+      - "CPC/CPC1105_CC"
     file_patterns: ["*.csv"]
     date_source: "folder"
     date_regex: "(\\d{4}-\\d{2}-\\d{2})"
     date_format: "%Y-%m-%d"
     note: "CPC '1105' unit. Also serves as detector for SMPS 7002. Mixed flat/dated layouts."
+
+  - code: CPC3750_SN3750213103
+    model: "TSI CPC 3750"
+    serial: "3750213103"
+    category: "CPC"
+    legacy_paths:
+      - "CPC/CPC3103 (CC)"
+      - "CPC/CPC1105_CC"
+    file_patterns: ["*.csv"]
+    date_source: "folder"
+    date_regex: "(\\d{4}-\\d{2}-\\d{2})"
+    date_format: "%Y-%m-%d"
+    note: "CPC '3103' unit (SN ends in 213103). Discovered late: legacy folders 'CPC/CPC3103 (CC)' (clean) and 'CPC/CPC1105_CC' (mixed: 82 of this SN + 27 of SN 3750221103 + 4 of SN 3750221105 + 156 header-less raw files of unknown unit). Header-less raw files preserved only in _archive_pre_reorg/CPC/CPC1105_CC for future inspection."
 
   # ---------- SMPS (Scanning Mobility Particle Sizer) — 2 systems ----------
   - code: SMPS_SN7002_CPC3750221105
