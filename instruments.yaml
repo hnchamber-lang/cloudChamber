@@ -110,10 +110,11 @@ instruments:
     detector_serial: "3750221103"
     category: "SMPS"
     legacy_paths: ["SMPS7003"]
-    file_patterns: ["*.p82", "*.csv", "*.txt", "*.TXT"]
-    date_source: "folder"
+    file_patterns: ["*.p82", "*.S82", "*.s82", "*.csv", "*.txt", "*.TXT"]
+    date_source: "file_mtime"
+    date_regex: "(\\d{8})"
     date_format: "%Y%m%d"
-    note: "DMA SN 7003 paired with CPC 1103."
+    note: "DMA SN 7003 paired with CPC 1103. mtime fallback covers Asia_AQ_YYYYMMDD.S82/.p82 files when parent folder name encodes a different date."
 
   # ---------- PROMO (Palas optical particle counters) ----------
   - code: PROMO2000_SN15639
@@ -182,11 +183,11 @@ instruments:
     serial: "06-03"
     category: "Ice nucleation chamber"
     legacy_paths: ["PINE07 (AC)"]
-    file_patterns: ["*.csv", "*.dat", "pfo_PINE-*.txt"]
-    date_source: "folder"
+    file_patterns: ["*.csv", "*.dat", "pfo_PINE-*.txt", "pfr_PINE-*.txt"]
+    date_source: "file_mtime"
     date_regex: "(\\d{8})"
     date_format: "%Y%m%d"
-    note: "Some files like 'pfo_PINE-06-03_iceeb-20ms-20251226.txt' encode date at end."
+    note: "Filenames vary (pfo_/pfr_ prefixes; date sometimes at end of stem). Falls back to file mtime since active campaign files like 'pfr_PINE-06-03_asiaaq-2026_opid-N.txt' have no date in name."
 
   # ---------- MARGA (wet-chemistry aerosol analyzer) ----------
   - code: MARGA2060_SN
