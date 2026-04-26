@@ -6,3 +6,9 @@ preflight_report.csv
 _archive_pre_reorg/
 _gui_tmp_namelist.yaml
 namelist.*.yaml
+
+# verify_integrity / build run artifacts
+verify_*.csv
+verify_*.log
+val_out.txt
+reorg_stdout.log

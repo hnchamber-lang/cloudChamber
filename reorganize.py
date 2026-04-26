@@ -40,6 +40,7 @@ import argparse
 import csv
 import hashlib
 import logging
+import logging.handlers
 import shutil
 import sys
 from dataclasses import dataclass, field
@@ -97,7 +98,7 @@ def setup_logger() -> logging.Logger:
     logger.addHandler(sh)
 
     RUN_LOG.parent.mkdir(parents=True, exist_ok=True)
-    fh = logging.FileHandler(RUN_LOG, encoding="utf-8")
+    fh = logging.handlers.RotatingFileHandler(RUN_LOG, maxBytes=10*1024*1024, backupCount=5, encoding="utf-8")
     fh.setLevel(logging.DEBUG)
     fh.setFormatter(fmt)
     logger.addHandler(fh)
@@ -445,6 +446,8 @@ def main(argv: list[str] | None = None) -> int:
                    help="Restore originals from _archive_pre_reorg.")
     ap.add_argument("--no-archive", action="store_true",
                     help="Skip copying originals to _archive_pre_reorg (faster, riskier).")
+    ap.add_argument("--force", action="store_true",
+                    help="Bypass the pre-execution disk space guard.")
     args = ap.parse_args(argv)
 
     log.info("Chamber root     : %s", CHAMBER_ROOT)
@@ -472,6 +475,17 @@ def main(argv: list[str] | None = None) -> int:
     if args.execute:
         log.warning("EXECUTE mode - %d steps. Archive-first=%s",
                     len(steps), not args.no_archive)
+        
+        # Disk Space Guard (P1-3)
+        if not args.no_archive and not args.force:
+            log.info("Calculating total data size for disk space guard...")
+            total_size = sum(p.stat().st_size for p in CHAMBER_ROOT.rglob("*") if p.is_file())
+            free = shutil.disk_usage(CHAMBER_ROOT).free
+            if free < total_size * 1.1:
+                log.error(f"Disk space guard aborted execution! Need ~{total_size/1e9:.1f}GB for archive, only {free/1e9:.1f}GB free.")
+                log.error("Use --force to bypass this check, or --no-archive to skip backing up.")
+                return 1
+
         resp = input("Proceed?  Type 'yes' to continue: ").strip().lower()
         if resp != "yes":
             log.info("Aborted by user.")

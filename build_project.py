@@ -44,6 +44,7 @@ import csv
 import fnmatch
 import hashlib
 import logging
+import logging.handlers
 import os
 import re
 import shutil
@@ -99,7 +100,7 @@ def setup_logger(logfile: Path | None) -> None:
 
     if logfile is not None:
         logfile.parent.mkdir(parents=True, exist_ok=True)
-        fh = logging.FileHandler(logfile, encoding="utf-8")
+        fh = logging.handlers.RotatingFileHandler(logfile, maxBytes=10*1024*1024, backupCount=5, encoding="utf-8")
         fh.setLevel(logging.DEBUG)
         fh.setFormatter(fmt)
         log.addHandler(fh)
