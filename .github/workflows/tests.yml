@@ -1,0 +1,34 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: pytest + e2e (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # PyQt5 is GUI-only (chamber_gui.py) and not used by tests/ or
+      # test_e2e.py. Install only the headless dependency to keep CI fast.
+      - name: Install PyYAML
+        run: python -m pip install "PyYAML>=6,<7"
+
+      - name: Unit tests
+        run: python -m unittest discover -v tests/
+
+      - name: End-to-end synthetic-data regression
+        run: python test_e2e.py

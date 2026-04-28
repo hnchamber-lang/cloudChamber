@@ -1,10 +1,23 @@
 # Chamber Reorganization & Project Builder
 
-Tooling to (1) reorganize `D:\Chamber` into a standardized instrument-serial
-based layout and (2) build per-experiment project folders from a user-authored
-`namelist.yaml` — via CLI or a PyQt5 GUI.
+[![tests](https://github.com/hnchamber-lang/cloudChamber/actions/workflows/tests.yml/badge.svg)](https://github.com/hnchamber-lang/cloudChamber/actions/workflows/tests.yml)
+[![python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](#prerequisites)
 
-## Files in this folder (`D:\Chamber\_reorg\`)
+Tooling to (1) reorganize `D:\Chamber` into a standardized instrument-serial
+based layout (`01_instruments/{MODEL}_SN{serial}/`) and (2) build
+per-experiment project folders from a user-authored `namelist.yaml` — via CLI
+or a PyQt5 GUI.
+
+## Quick start
+
+| Audience | Document |
+|---|---|
+| English walkthrough (start here) | [`walkthrough.md`](./walkthrough.md) |
+| 한국어 빠른 시작 | [`사용설명서.md`](./사용설명서.md) |
+| Edge-case cookbook | [`TROUBLESHOOTING.md`](./TROUBLESHOOTING.md) |
+| Instrument catalog (single source of truth) | [`instruments.yaml`](./instruments.yaml) |
+
+## Files in this folder
 
 | File | Purpose |
 |---|---|
