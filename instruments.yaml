@@ -193,24 +193,30 @@ instruments:
     date_source: "folder"
     date_format: "%Y-%m-%d"
 
-  # ---------- PINE (ice nucleation chamber) ----------
-  # NOTE: 이력카드 v5.0 (2026-02-04) lists TWO PINE units:
-  #   빙정핵계수기(1)  PINE  BiLFINGER  SN S911108  설치 구름챔버     2023-10-04
-  #   빙정핵계수기(2)  PINE  BiLFINGER  SN S911112  설치 에어로졸챔버  2023-10-04
-  # The legacy folder "PINE07 (AC)" / filenames "PINE-06-03" use "06-03" as an
-  # instrument-ID embedded in the filename (not the manufacturer serial).
-  # TODO: confirm which manufacturer SN maps to which chamber (PINE07=S911108?)
-  #       and add a second entry for the second unit if its data exists.
+  # ---------- PINE (ice nucleation chamber) — 2 units ----------
   - code: PINE_SN06-03
     model: "Bilfinger PINE"
     serial: "06-03"
+    mfr_serial: "S911112"
     category: "Ice nucleation chamber"
     legacy_paths: ["PINE07 (AC)"]
-    file_patterns: ["*.csv", "*.dat", "pfo_PINE-*.txt", "pfr_PINE-*.txt"]
+    file_patterns: ["*.csv", "*.dat", "pfo_PINE-*.txt", "pfr_PINE-*.txt", "cf_PINE-*.txt", "df_PINE-*.txt"]
     date_source: "file_mtime"
     date_regex: "(\\d{8})"
     date_format: "%Y%m%d"
-    note: "Instrument-ID '06-03' is embedded in filenames (e.g. pfr_PINE-06-03_...). Manufacturer SNs from 이력카드: S911108 (구름챔버) and S911112 (에어로졸챔버) — confirm which corresponds to PINE07 data. Falls back to file mtime (no date in active-campaign filenames)."
+    note: "에어로졸챔버 설치 (2023-10-04). Instrument-ID '06-03' embedded in all filenames. Manufacturer SN S911112 (이력카드 v5.0). Falls back to file mtime."
+
+  - code: PINE_SN06-02
+    model: "Bilfinger PINE"
+    serial: "06-02"
+    mfr_serial: "S911108"
+    category: "Ice nucleation chamber"
+    legacy_paths: []
+    file_patterns: ["*.csv", "*.dat", "pfo_PINE-*.txt", "pfr_PINE-*.txt", "cf_PINE-*.txt", "df_PINE-*.txt"]
+    date_source: "file_mtime"
+    date_regex: "(\\d{8})"
+    date_format: "%Y%m%d"
+    note: "구름챔버 설치 (2023-10-04). Manufacturer SN S911108 (이력카드 v5.0). No data folder under D:/Chamber yet — create 01_instruments/PINE_SN06-02/ when data collection begins."
 
   # ---------- MARGA (wet-chemistry aerosol analyzer) ----------
   - code: MARGA2060_SN0411237030062
