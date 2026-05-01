@@ -52,6 +52,7 @@ class CatalogEntry:
     model: str
     serial: str
     category: str
+    desc: str   # 한국어 한 줄 설명 (instruments.yaml → desc 필드)
     note: str
 
 
@@ -62,7 +63,8 @@ def load_catalog() -> list[CatalogEntry]:
     for e in raw.get("instruments", []):
         out.append(CatalogEntry(
             code=e["code"], model=e.get("model", ""), serial=e.get("serial", ""),
-            category=e.get("category", ""), note=e.get("note", ""),
+            category=e.get("category", ""), desc=e.get("desc", ""),
+            note=e.get("note", ""),
         ))
     return out
 
@@ -72,9 +74,13 @@ def load_catalog() -> list[CatalogEntry]:
 # ---------------------------------------------------------------------------
 
 class InstrumentTable(QtWidgets.QTableWidget):
-    """One row per catalog entry: [use?, model, serial, category, start, end, note]."""
+    """One row per catalog entry: [use?, model, serial, category, start, end, 장비 설명]."""
 
-    COLS = ("Use", "Model", "Serial", "Category", "Start", "End", "Note")
+    COLS = ("Use", "Model", "S/N", "Category", "Start", "End", "장비 설명")
+
+    # 배경색
+    _BG_MISS  = QtGui.QColor("#fff3cd")   # 연노랑 — SN 미확인
+    _BG_NODATA = QtGui.QColor("#e8f4f8")  # 연파랑 — 데이터 수집 전
 
     def __init__(self, entries: list[CatalogEntry], parent=None):
         super().__init__(len(entries), len(self.COLS), parent)
@@ -83,18 +89,39 @@ class InstrumentTable(QtWidgets.QTableWidget):
         self.verticalHeader().setVisible(False)
         self.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.setAlternatingRowColors(True)
 
         for row, e in enumerate(entries):
+            is_miss    = e.serial == "Miss"
+            is_nodata  = not is_miss and "데이터 수집 전" in e.desc
+            row_bg = (self._BG_MISS if is_miss
+                      else self._BG_NODATA if is_nodata
+                      else None)
+
+            def _cell(text: str, tooltip: str = "") -> QtWidgets.QTableWidgetItem:
+                item = QtWidgets.QTableWidgetItem(text)
+                if tooltip:
+                    item.setToolTip(tooltip)
+                if row_bg:
+                    item.setBackground(QtGui.QBrush(row_bg))
+                return item
+
             chk = QtWidgets.QTableWidgetItem()
             chk.setCheckState(QtCore.Qt.Unchecked)
             chk.setFlags(chk.flags() | QtCore.Qt.ItemIsUserCheckable)
+            if row_bg:
+                chk.setBackground(QtGui.QBrush(row_bg))
             self.setItem(row, 0, chk)
-            self.setItem(row, 1, QtWidgets.QTableWidgetItem(e.model))
-            serial_item = QtWidgets.QTableWidgetItem(e.serial or "(unknown)")
-            if not e.serial:
-                serial_item.setForeground(QtGui.QBrush(QtGui.QColor("#b00")))
+
+            self.setItem(row, 1, _cell(e.model, e.code))
+
+            serial_text = e.serial if e.serial and e.serial != "Miss" else "미확인"
+            serial_item = _cell(serial_text)
+            if is_miss:
+                serial_item.setForeground(QtGui.QBrush(QtGui.QColor("#996600")))
             self.setItem(row, 2, serial_item)
-            self.setItem(row, 3, QtWidgets.QTableWidgetItem(e.category))
+
+            self.setItem(row, 3, _cell(e.category))
 
             start_edit = QtWidgets.QDateEdit(calendarPopup=True)
             start_edit.setDisplayFormat("yyyy-MM-dd")
@@ -106,9 +133,9 @@ class InstrumentTable(QtWidgets.QTableWidget):
             self.setCellWidget(row, 4, start_edit)
             self.setCellWidget(row, 5, end_edit)
 
-            note_item = QtWidgets.QTableWidgetItem(e.note)
-            note_item.setToolTip(e.note)
-            self.setItem(row, 6, note_item)
+            # 장비 설명 컬럼: desc를 표시, 전체 note를 툴팁으로
+            tooltip = e.note if e.note else e.desc
+            self.setItem(row, 6, _cell(e.desc, tooltip))
 
         self.resizeColumnsToContents()
         self.horizontalHeader().setStretchLastSection(True)

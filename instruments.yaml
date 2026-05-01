@@ -30,6 +30,7 @@ instruments:
 
   # ---------- CCN (Cloud Condensation Nuclei counter) ----------
   - code: CCN200_SN2310-057
+    desc: "구름응결핵 계수기 — 에어로졸챔버 (신형, SN 057)"
     model: "DMT CCN-200"
     serial: "2310-057"
     category: "CCN counter"
@@ -41,6 +42,7 @@ instruments:
     note: "Corresponds to 'CCN_057' in project folders. Filenames look like CCN_200_Data_20240926_152030.csv"
 
   - code: CCN200_SN2204-052
+    desc: "구름응결핵 계수기 — 구름챔버 (구형, SN 052)"
     model: "DMT CCN-200"
     serial: "2204-052"
     category: "CCN counter"
@@ -53,6 +55,7 @@ instruments:
 
   # ---------- CPC (Condensation Particle Counter) — 3 units ----------
   - code: CPC3750_SN3750230103
+    desc: "응결핵 수농도 계수기 — 에어로졸챔버 (0103)"
     model: "TSI CPC 3750"
     serial: "3750230103"
     category: "CPC"
@@ -66,6 +69,7 @@ instruments:
     note: "CPC '0103' unit. Used in AC. Filenames may be '2026-01-22 120009_1 Hz.csv'."
 
   - code: CPC3750_SN3750221103
+    desc: "응결핵 계수기 — 구름챔버 · SMPS 7003 검출기 (1103)"
     model: "TSI CPC 3750"
     serial: "3750221103"
     category: "CPC"
@@ -78,6 +82,7 @@ instruments:
     note: "CPC '1103' unit. Used in CC (Cloud Chamber). Also serves as detector for SMPS 7003. 27 misplaced files were also found inside CPC/CPC1105_CC."
 
   - code: CPC3750_SN3750221105
+    desc: "응결핵 계수기 — 에어로졸챔버 · SMPS 7002 검출기 (1105)"
     model: "TSI CPC 3750"
     serial: "3750221105"
     category: "CPC"
@@ -92,6 +97,7 @@ instruments:
     note: "CPC '1105' unit. Also serves as detector for SMPS 7002. Mixed flat/dated layouts."
 
   - code: CPC3750_SN3750213103
+    desc: "응결핵 계수기 — 구름챔버 (3103)"
     model: "TSI CPC 3750"
     serial: "3750213103"
     category: "CPC"
@@ -106,6 +112,7 @@ instruments:
 
   # ---------- SMPS (Scanning Mobility Particle Sizer) — 2 systems ----------
   - code: SMPS_SN7002_CPC3750221105
+    desc: "나노입자 크기분포 — DMA 7002 + CPC 1105"
     model: "TSI SMPS (3082 DMA + 3750 CPC)"
     serial: "7002"
     detector_serial: "3750221105"
@@ -121,6 +128,7 @@ instruments:
     note: "DMA SN 7002 paired with CPC 1105. Some NIMS_Milo files embed YYYYMMDD in filename (kcl_validB_20260122.p82)."
 
   - code: SMPS_SN7003_CPC3750221103
+    desc: "나노입자 크기분포 — DMA 7003 + CPC 1103"
     model: "TSI SMPS (3082 DMA + 3750 CPC)"
     serial: "7003"
     detector_serial: "3750221103"
@@ -134,6 +142,7 @@ instruments:
 
   # ---------- PROMO (Palas optical particle counters) ----------
   - code: PROMO2000_SN15639
+    desc: "에어로졸 광학 입자 계수기 — 에어로졸챔버 (15639)"
     model: "Palas Promo 2000"
     serial: "15639"
     category: "Optical particle counter"
@@ -144,6 +153,7 @@ instruments:
     date_format: "%Y-%m-%d"
 
   - code: PROMO2000_SN22659
+    desc: "에어로졸 광학 입자 계수기 — 구름챔버 신형 (22659)"
     model: "Palas Promo 2000"
     serial: "22659"
     category: "Optical particle counter"
@@ -153,6 +163,7 @@ instruments:
     date_format: "%Y%m"
 
   - code: PROMO3000_SN18803
+    desc: "에어로졸 광학 입자 계수기 — 구름챔버 (18803)"
     model: "Palas Promo 3000"
     serial: "18803"
     category: "Optical particle counter"
@@ -163,6 +174,7 @@ instruments:
 
   # ---------- LI-COR (CO2/H2O gas analyzer) ----------
   - code: LI7500_SN75D-4824
+    desc: "CO2/H2O 가스 분析기 #1 (구름챔버)"
     model: "LI-COR LI-7500"
     serial: "75D-4824"
     category: "Gas analyzer (CO2/H2O)"
@@ -174,6 +186,7 @@ instruments:
     note: "Filenames: LogFile-YYYY-MM-DDTHHMMSS[-...].txt|.csv"
 
   - code: LI7500_SN75D-4831
+    desc: "CO2/H2O 가스 분석기 #2 (에어로졸챔버)"
     model: "LI-COR LI-7500"
     serial: "75D-4831"
     category: "Gas analyzer (CO2/H2O)"
@@ -185,6 +198,7 @@ instruments:
 
   # ---------- Graphtec data logger ----------
   - code: GL840_SN0505170C
+    desc: "다채널 온도·전압 데이터 로거"
     model: "GRAPHTEC GL840"
     serial: "0505170C"
     category: "Data logger"
@@ -195,6 +209,7 @@ instruments:
 
   # ---------- PINE (ice nucleation chamber) — 2 units ----------
   - code: PINE_SN06-03
+    desc: "빙정핵 계수기 — 에어로졸챔버 (기기ID 06-03)"
     model: "Bilfinger PINE"
     serial: "06-03"
     mfr_serial: "S911112"
@@ -207,6 +222,7 @@ instruments:
     note: "에어로졸챔버 설치 (2023-10-04). Instrument-ID '06-03' embedded in all filenames. Manufacturer SN S911112 (이력카드 v5.0). Falls back to file mtime."
 
   - code: PINE_SN06-02
+    desc: "빙정핵 계수기 — 구름챔버 (기기ID 06-02) ※데이터 수집 전"
     model: "Bilfinger PINE"
     serial: "06-02"
     mfr_serial: "S911108"
@@ -220,6 +236,7 @@ instruments:
 
   # ---------- MARGA (wet-chemistry aerosol analyzer) ----------
   - code: MARGA2060_SN0411237030062
+    desc: "수용성 이온 성분 분석기 — 에어로졸챔버"
     model: "Metrohm MARGA 2060"
     serial: "0411237030062"
     category: "Wet-chem aerosol analyzer"
@@ -232,6 +249,7 @@ instruments:
 
   # ---------- SN confirmed ----------
   - code: CASDPOL_SN2310-045
+    desc: "구름·에어로졸 편광 분광 분析기 (CAPS-DPOL)"
     model: "DMT CAPS-DPOL"
     serial: "2310-045"
     category: "Cloud aerosol spectrometer"
@@ -243,6 +261,7 @@ instruments:
 
   # ---------- SN 미확인 (SNMiss) — 실물 레이블 확인 후 갱신 필요 ----------
   - code: CD5N_SNMiss
+    desc: "온도·습도 로거 (5초 간격) ※SN 미확인"
     model: "CD5N"
     serial: "Miss"
     category: "Temperature & humidity sensor"
@@ -254,6 +273,7 @@ instruments:
     note: "SN 미확인. CSV 컬럼: timestamp, temperature_C, humidity_pct (5초 간격 온습도 로거)."
 
   - code: CIMON_SNMiss
+    desc: "태양 복사 센서 ※SN 미확인"
     model: "CIMON solar radiation sensor"
     serial: "Miss"
     category: "Radiometer"
@@ -264,6 +284,7 @@ instruments:
     note: "SN 미확인."
 
   - code: CPI_SNMiss
+    desc: "구름 입자 이미징 시스템 (SPEC CPI) ※SN 미확인"
     model: "SPEC CPI (Cloud Particle Imager)"
     serial: "Miss"
     category: "Imaging probe"
@@ -275,6 +296,7 @@ instruments:
     note: "SN 미확인 — 이력카드 v5.0에 등재되나 S/N 공란. 설치 2022-11-11 (구름챔버). 장비 레이블 또는 PADS .cpi 헤더 확인 필요."
 
   - code: FTM06D_SNMiss
+    desc: "유량·온도 모니터 ※SN 미확인"
     model: "FTM06D"
     serial: "Miss"
     category: "Flow / temperature monitor"
@@ -285,6 +307,7 @@ instruments:
     note: "SN 미확인."
 
   - code: HYGRO1011_SNMiss
+    desc: "정밀 습도계 — 구름챔버 (Bucks 1011C) ※SN 미확인"
     model: "Bucks Engineering 1011C"
     serial: "Miss"
     category: "Hygrometer"
@@ -295,6 +318,7 @@ instruments:
     note: "SN 미확인 — 이력카드 v5.0 모델명 '1011C BUCKS research' (구름챔버) 확인. 장비 레이블 확인 필요."
 
   - code: SkyOPC_SNMiss
+    desc: "광학 입자 계수기 (GRIMM Sky-OPC) ※SN 미확인"
     model: "GRIMM Sky-OPC"
     serial: "Miss"
     category: "Optical particle counter"
