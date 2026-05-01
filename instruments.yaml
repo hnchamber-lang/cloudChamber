@@ -40,16 +40,16 @@ instruments:
     date_format: "%Y%m%d_%H%M%S"
     note: "Corresponds to 'CCN_057' in project folders. Filenames look like CCN_200_Data_20240926_152030.csv"
 
-  - code: CCN200_SN
+  - code: CCN200_SN2204-052
     model: "DMT CCN-200"
-    serial: ""
+    serial: "2204-052"
     category: "CCN counter"
     legacy_paths: ["CCN_200 (OLD)"]
     file_patterns: ["CCN-200 data *.csv", "CCN-200 data *.CSV"]
     date_source: "filename"
     date_regex: "CCN-200 data (\\d{12})\\.[cC][sS][vV]"
     date_format: "%y%m%d%H%M%S"
-    note: "2022 archive. Older firmware - no SN in header. Fill serial after hardware-label check."
+    note: "2022 archive (SN 052). Older firmware - SN not embedded in data headers. SN confirmed from 이력카드 v5.0; installed 2022-11-11."
 
   # ---------- CPC (Condensation Particle Counter) — 3 units ----------
   - code: CPC3750_SN3750230103
@@ -194,8 +194,15 @@ instruments:
     date_format: "%Y-%m-%d"
 
   # ---------- PINE (ice nucleation chamber) ----------
+  # NOTE: 이력카드 v5.0 (2026-02-04) lists TWO PINE units:
+  #   빙정핵계수기(1)  PINE  BiLFINGER  SN S911108  설치 구름챔버     2023-10-04
+  #   빙정핵계수기(2)  PINE  BiLFINGER  SN S911112  설치 에어로졸챔버  2023-10-04
+  # The legacy folder "PINE07 (AC)" / filenames "PINE-06-03" use "06-03" as an
+  # instrument-ID embedded in the filename (not the manufacturer serial).
+  # TODO: confirm which manufacturer SN maps to which chamber (PINE07=S911108?)
+  #       and add a second entry for the second unit if its data exists.
   - code: PINE_SN06-03
-    model: "Bilfinger PINE 06-03"
+    model: "Bilfinger PINE"
     serial: "06-03"
     category: "Ice nucleation chamber"
     legacy_paths: ["PINE07 (AC)"]
@@ -203,30 +210,30 @@ instruments:
     date_source: "file_mtime"
     date_regex: "(\\d{8})"
     date_format: "%Y%m%d"
-    note: "Filenames vary (pfo_/pfr_ prefixes; date sometimes at end of stem). Falls back to file mtime since active campaign files like 'pfr_PINE-06-03_asiaaq-2026_opid-N.txt' have no date in name."
+    note: "Instrument-ID '06-03' is embedded in filenames (e.g. pfr_PINE-06-03_...). Manufacturer SNs from 이력카드: S911108 (구름챔버) and S911112 (에어로졸챔버) — confirm which corresponds to PINE07 data. Falls back to file mtime (no date in active-campaign filenames)."
 
   # ---------- MARGA (wet-chemistry aerosol analyzer) ----------
-  - code: MARGA2060_SN
+  - code: MARGA2060_SN0411237030062
     model: "Metrohm MARGA 2060"
-    serial: ""
+    serial: "0411237030062"
     category: "Wet-chem aerosol analyzer"
     legacy_paths: ["MARGA"]
     file_patterns: ["*.idet", "*.csv"]
     date_source: "filename"
     date_regex: "(\\d{8})-(\\d{6})\\.idet"
     date_format: "%Y%m%d-%H%M%S"
-    note: "Unit SN not found in data files. Check device label."
+    note: "SN confirmed from 이력카드 v5.0 (2026-02-04)."
 
   # ---------- Unknown-serial instruments (placeholder; SN to be filled) ----------
-  - code: CASDPOL_SN
-    model: "DMT CAS-DPOL"
-    serial: ""
+  - code: CASDPOL_SN2310-045
+    model: "DMT CAPS-DPOL"
+    serial: "2310-045"
     category: "Cloud aerosol spectrometer"
     legacy_paths: ["CASDPOL"]
     file_patterns: ["*.csv", "*.dat"]
     date_source: "folder"
     date_format: "%Y%m%d"
-    note: "SN unknown. No metadata in PADS files."
+    note: "SN confirmed from 이력카드 v5.0. Excel lists model as 'CAPS-DPOL' (Cloud and Aerosol Particle Spectrometer with Depolarization); legacy folder name 'CASDPOL' is retained for continuity."
 
   - code: CD5N_SN
     model: "CD5N"
@@ -258,7 +265,7 @@ instruments:
     date_source: "folder"
     date_regex: "(\\d{14})"
     date_format: "%Y%m%d%H%M%S"
-    note: "SN unknown. 'Build data' subfolder has 14-digit-named .roi files; date-named subfolders elsewhere."
+    note: "SN still unknown — 이력카드 v5.0 lists unit but S/N field is blank. Installed 2022-11-11 (구름챔버). Check device label or PADS .cpi header."
 
   - code: FTM06D_SN
     model: "FTM06D"
@@ -271,14 +278,14 @@ instruments:
     note: "SN unknown."
 
   - code: HYGRO1011_SN
-    model: "Hygrometer 1011"
+    model: "Bucks Engineering 1011C"
     serial: ""
     category: "Hygrometer"
     legacy_paths: ["HYGRO1011"]
     file_patterns: ["*.csv"]
     date_source: "folder"
     date_format: "%Y%m"
-    note: "SN unknown."
+    note: "SN still unknown — 이력카드 v5.0 lists model '1011C BUCKS research' (구름챔버) but S/N field is blank. Check device label."
 
   - code: SkyOPC_SN
     model: "GRIMM Sky-OPC"
