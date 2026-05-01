@@ -230,7 +230,7 @@ instruments:
     date_format: "%Y%m%d-%H%M%S"
     note: "SN confirmed from 이력카드 v5.0 (2026-02-04)."
 
-  # ---------- Unknown-serial instruments (placeholder; SN to be filled) ----------
+  # ---------- SN confirmed ----------
   - code: CASDPOL_SN2310-045
     model: "DMT CAPS-DPOL"
     serial: "2310-045"
@@ -241,68 +241,69 @@ instruments:
     date_format: "%Y%m%d"
     note: "SN confirmed from 이력카드 v5.0. Excel lists model as 'CAPS-DPOL' (Cloud and Aerosol Particle Spectrometer with Depolarization); legacy folder name 'CASDPOL' is retained for continuity."
 
-  - code: CD5N_SN
+  # ---------- SN 미확인 (SNMiss) — 실물 레이블 확인 후 갱신 필요 ----------
+  - code: CD5N_SNMiss
     model: "CD5N"
-    serial: ""
-    category: "CD5N detector"
+    serial: "Miss"
+    category: "Temperature & humidity sensor"
     legacy_paths: ["CDSN"]
     file_patterns: ["sth_cd5n_*.csv"]
     date_source: "filename"
     date_regex: "sth_cd5n_(\\d{8})_(\\d{6})\\.csv"
     date_format: "%Y%m%d-%H%M%S"
-    note: "SN unknown. Data-only CSV."
+    note: "SN 미확인. CSV 컬럼: timestamp, temperature_C, humidity_pct (5초 간격 온습도 로거)."
 
-  - code: CIMON_SN
+  - code: CIMON_SNMiss
     model: "CIMON solar radiation sensor"
-    serial: ""
+    serial: "Miss"
     category: "Radiometer"
     legacy_paths: ["CIMON"]
     file_patterns: ["*.csv"]
     date_source: "folder"
     date_format: "%Y%m"
-    note: "SN unknown."
+    note: "SN 미확인."
 
-  - code: CPI_SN
+  - code: CPI_SNMiss
     model: "SPEC CPI (Cloud Particle Imager)"
-    serial: ""
+    serial: "Miss"
     category: "Imaging probe"
     legacy_paths: ["CPI"]
     file_patterns: ["*.cpi", "*.roi", "*.csv"]
     date_source: "folder"
     date_regex: "(\\d{14})"
     date_format: "%Y%m%d%H%M%S"
-    note: "SN still unknown — 이력카드 v5.0 lists unit but S/N field is blank. Installed 2022-11-11 (구름챔버). Check device label or PADS .cpi header."
+    note: "SN 미확인 — 이력카드 v5.0에 등재되나 S/N 공란. 설치 2022-11-11 (구름챔버). 장비 레이블 또는 PADS .cpi 헤더 확인 필요."
 
-  - code: FTM06D_SN
+  - code: FTM06D_SNMiss
     model: "FTM06D"
-    serial: ""
+    serial: "Miss"
     category: "Flow / temperature monitor"
     legacy_paths: ["FTM06D"]
     file_patterns: ["*.csv"]
     date_source: "folder"
     date_format: "%Y%m%d"
-    note: "SN unknown."
+    note: "SN 미확인."
 
-  - code: HYGRO1011_SN
+  - code: HYGRO1011_SNMiss
     model: "Bucks Engineering 1011C"
-    serial: ""
+    serial: "Miss"
     category: "Hygrometer"
     legacy_paths: ["HYGRO1011"]
     file_patterns: ["*.csv"]
     date_source: "folder"
     date_format: "%Y%m"
-    note: "SN still unknown — 이력카드 v5.0 lists model '1011C BUCKS research' (구름챔버) but S/N field is blank. Check device label."
+    note: "SN 미확인 — 이력카드 v5.0 모델명 '1011C BUCKS research' (구름챔버) 확인. 장비 레이블 확인 필요."
 
-  - code: SkyOPC_SN
+  - code: SkyOPC_SNMiss
     model: "GRIMM Sky-OPC"
-    serial: ""
+    serial: "Miss"
     category: "Optical particle counter"
     legacy_paths: ["Sky-OPC"]
     file_patterns: ["*.dat"]
     date_source: "filename"
     date_regex: "(\\d{4}-\\d{2}-\\d{2})-[CLMd]"
     date_format: "%Y-%m-%d"
-    note: "SN unknown. Filenames like 'kaolin_2026415_2026-04-15-C.dat'; the trailing date is authoritative."
+    note: "SN 미확인. 파일명 예: 'kaolin_2026415_2026-04-15-C.dat' (말미 날짜가 기준)."
 
 # =============================================================================
 # Legacy / mixed folders to be handled by reorganize.py (non-instrument)
